@@ -1,0 +1,26 @@
+pipeline {
+  agent any
+    stages {  
+      stage('scp') {
+        steps{
+             git branch: 'main', 
+             credentialsId: 'github',
+             url: 'https://github.com/vigneshravi2396/Dev.git'
+             
+          sshagent(['5916b46a-0fa7-4573-990d-faf8760bd9fa']) {
+                   sh'''rsync -av --exclude=.git --exclude=.gitignore --exclude=.gitignore_Zone.Identifier --exclude=HELP.md_Zone.Identifier ./ ubuntu@ec2-44-211-135-3.compute-1.amazonaws.com:/home/ubuntu/purushoth01
+
+                   '''
+                    sh '''
+                    ssh ubuntu@ec2-44-211-135-3.compute-1.amazonaws.com "cd purushoth01 &&
+                    mvn install &&
+                    sudo chmod 777 mvnw mvnw.cmd &&
+                    sudo docker-compose up -d
+                    "
+                    '''
+         }
+        }    
+            
+      }
+  }
+}
