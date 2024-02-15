@@ -2,6 +2,9 @@ pipeline {
   agent any
     stages {  
       stage('scp') {
+          input {
+              message 'Deploy?'
+              ok 'Do it!'
         steps{
              git branch: 'main', 
              credentialsId: 'github',
@@ -24,7 +27,8 @@ pipeline {
          }
         }    
             
-      }
+      } 
+          
   }
 }
 //nill add
