@@ -19,7 +19,7 @@ pipeline {
 
       stage('Unit Test') {
         steps {
-          dir('./java-tomcat-sample') {
+          dir('/var/lib/jenkins/workspace/ssh-agent-pipline/java-tomcat-sample/java-tomcat-sample') {
             sh '''
               echo "Executing Unit Tests..."
               mvn test
